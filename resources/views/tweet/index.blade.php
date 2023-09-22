@@ -2,7 +2,7 @@
 
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight dark:text-gray-200">
       {{ __('Tweet Index') }}
     </h2>
   </x-slot>
@@ -21,9 +21,12 @@
               @foreach ($tweets as $tweet)
               <tr class="hover:bg-gray-lighter">
                 <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600">
-                  <!-- 🔽 ここから編集 -->
                   <div class="flex">
-                    <p class="text-left text-gray-800 dark:text-gray-200">{{$tweet->user->name}}</p>
+                    <!-- 🔽 編集 -->
+                    <a href="{{ route('follow.show', $tweet->user->id) }}">
+                      <p class="text-left text-gray-dark dark:text-gray-200">{{$tweet->user->name}}</p>
+                    </a>
+                    <!-- 🔼 ここまで -->
                     <!-- follow 状態で条件分岐 -->
                     @if(Auth::user()->followings()->where('users.id', $tweet->user->id)->exists())
                     <!-- unfollow ボタン -->
@@ -52,7 +55,6 @@
                   <a href="{{ route('tweet.show',$tweet->id) }}">
                     <h3 class="text-left font-bold text-lg text-gray-800 dark:text-gray-200">{{$tweet->tweet}}</h3>
                   </a>
-                  <!-- 🔼 ここまで編集 -->
                   <div class="flex">
                     <!-- favorite 状態で条件分岐 -->
                     @if($tweet->users()->where('user_id', Auth::id())->exists())
