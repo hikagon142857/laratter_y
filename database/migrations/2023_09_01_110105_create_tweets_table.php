@@ -16,6 +16,12 @@ return new class extends Migration
             // 🔽 ここから追加
             $table->string('tweet');
             $table->text('description')->nullable();
+            
+            //トレーニング内容の記録
+            $table->integer('BP')->nullable();
+            $table->integer('DL')->nullable();
+            $table->integer('SQ')->nullable();
+
             // 🔼 ここまで追加
             $table->timestamps();
         });
